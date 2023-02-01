@@ -7,38 +7,38 @@ let edit_id = null;
 
 let objStr = localStorage.getItem('users');
 console.log(objStr)
-if (objStr!=null){
+if (objStr != null) {
     userArray = JSON.parse(objStr);
 
 }
 DisplayInfo();
-addUserBtn.onclick=()=>{
+addUserBtn.onclick = () => {
     const name = usernameTextField.value;
-    if(edit_id!=null){
-        userArray.splice(edit_id,1,{'name' : name});
+    if (edit_id != null) {
+        userArray.splice(edit_id, 1, { 'name': name });
         edit_id = null;
     }
-    else{
-    userArray.push({'name' : name});
+    else {
+        userArray.push({ 'name': name });
     }
-   
+
     SaveInfo(userArray);
-    usernameTextField.value='';
-    
+    usernameTextField.value = '';
+
     addUserBtn.innerText = btnText;
 }
 
-function SaveInfo(userArray){
+function SaveInfo(userArray) {
     let str = JSON.stringify(userArray);
-    localStorage.setItem('users',str)
+    localStorage.setItem('users', str)
     DisplayInfo();
 }
 
-function DisplayInfo(){
+function DisplayInfo() {
     let statement = '';
-    userArray.forEach((user,i) => {
+    userArray.forEach((user, i) => {
         statement += `<tr>
-        <th scope="row">${i+1}</th>
+        <th scope="row">${i + 1}</th>
         <td>${user.name}</td>
         <td><i class="btn text-white fa fa-edit btn-info mx-2" onclick='EditInfo(${i})'></i>
          <i class="btn btn-danger text-white fa fa-trash" onclick='DeleteInfo(${i})'></i></td>
@@ -47,14 +47,14 @@ function DisplayInfo(){
     recordsDisplay.innerHTML = statement;
 }
 
-function EditInfo(id){
+function EditInfo(id) {
     edit_id = id;
     usernameTextField.value = userArray[id].name;
     addUserBtn.innerText = 'Save Changes';
 }
 
-function DeleteInfo(id){
+function DeleteInfo(id) {
 
-    userArray.splice(id,1);
+    userArray.splice(id, 1);
     SaveInfo(userArray);
 }
